@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "nuxt": {
+      "serverUrl": "https://nuxt.com/mcp"
+    },
+    "strapi-mcp": {
+      "serverUrl": "http://localhost:1337/mcp",
+      "headers": {
+        "Authorization": "Bearer ccb49b10f7bec622d04207168e704061de59a2dc6f8639d2143af137d9c7cafdbc9fda7f40e4d44aa43c10a8d6c53d62f3e002eb2596fd89c11285766110a29a558822e262db899970f64decc6bbb72cbcb0867dd94e7aad840cef65a7fe496fdd4b730a1853f76d4c78c47efd59e142088e6ae2da20e8a128ed76fbed478f2c"
+      }
+    }
+  }
+}

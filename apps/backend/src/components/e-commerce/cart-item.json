@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_e_commerce_cart_items",
+  "info": {
+    "displayName": "Cart Item"
+  },
+  "options": {},
+  "attributes": {
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "quantity": {
+      "type": "integer",
+      "required": true,
+      "max": 1000
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    }
+  },
+  "config": {}
+}

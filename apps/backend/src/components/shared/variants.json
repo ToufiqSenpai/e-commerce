@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_variants",
+  "info": {
+    "displayName": "variants",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "sku": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

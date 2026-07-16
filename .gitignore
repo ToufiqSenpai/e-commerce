@@ -1,0 +1,114 @@
+# =========================================================================
+# General Rules (Global)
+# =========================================================================
+
+# Node dependencies
+node_modules/
+
+# AI
+.agents/
+
+# OS files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+.Spotlight-V100
+.Trashes
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*~
+*#
+
+# Packages/Archives
+*.7z
+*.cab
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+*.zip
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# IDE and Editors
+.vscode/
+.idea/
+.fleet
+nbproject
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.tsbuildinfo
+.eslintcache
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+*.seed
+*.pid
+*.out
+.tmp
+lib-cov
+lcov.info
+pids
+logs
+results
+.node_history
+yarn-error.log
+.pnp.*
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Coverage
+coverage/
+
+
+# =========================================================================
+# Backend App Specific Rules (apps/backend)
+# =========================================================================
+
+# Strapi
+apps/backend/.strapi
+apps/backend/.strapi-updater.json
+apps/backend/.strapi-cloud.json
+apps/backend/dist/
+apps/backend/build/
+apps/backend/exports/
+apps/backend/license.txt
+apps/backend/ssl/
+
+# Media Uploads
+apps/backend/public/uploads/*
+!apps/backend/public/uploads/.gitkeep
+
+
+# =========================================================================
+# Frontend App Specific Rules (apps/web)
+# =========================================================================
+
+# Nuxt
+apps/web/.output
+apps/web/.data
+apps/web/.nuxt
+apps/web/.nitro
+apps/web/.cache
+
+# Playwright & Tests
+apps/web/playwright-report/
+apps/web/test-results/
