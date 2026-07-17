@@ -259,7 +259,7 @@ const reviews = ref([
       <!-- Main Layout Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
         <!-- Left Column: Carousel Image Gallery -->
-        <ProductImageCarousel :images="product.images" :productName="product.name" />
+        <ProductImageCarousel :images="product.images" :product-name="product.name" />
 
         <!-- Right Column: Product Info & Details -->
         <div class="flex flex-col gap-6">
@@ -310,9 +310,9 @@ const reviews = ref([
               <div class="flex items-center border border-border rounded-lg bg-muted/30">
                 <button
                   type="button"
-                  @click="decrementQuantity"
                   class="flex h-10 w-10 items-center justify-center rounded-l-lg hover:bg-muted text-foreground transition-colors cursor-pointer"
                   :disabled="quantity <= 1"
+                  @click="decrementQuantity"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -331,9 +331,9 @@ const reviews = ref([
                 <span class="w-12 text-center text-sm font-bold text-foreground">{{ quantity }}</span>
                 <button
                   type="button"
-                  @click="incrementQuantity"
                   class="flex h-10 w-10 items-center justify-center rounded-r-lg hover:bg-muted text-foreground transition-colors cursor-pointer"
                   :disabled="quantity >= product.stock"
+                  @click="incrementQuantity"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -357,9 +357,9 @@ const reviews = ref([
             <div class="flex flex-col sm:flex-row gap-3 pt-2">
               <button
                 type="button"
-                @click="addToCart"
                 :disabled="addingToCart || product.stock <= 0"
                 class="flex-1 h-12 inline-flex items-center justify-center gap-2 rounded-xl border border-primary text-primary hover:bg-primary/5 text-sm font-semibold transition-all cursor-pointer hover:scale-101 disabled:opacity-50 disabled:cursor-not-allowed"
+                @click="addToCart"
               >
                 <svg
                   v-if="addingToCart"
@@ -395,17 +395,17 @@ const reviews = ref([
               </button>
               <button
                 type="button"
-                @click="buyNow"
                 class="flex-1 h-12 inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground hover:bg-primary/95 text-sm font-semibold shadow-md transition-all cursor-pointer hover:scale-101"
+                @click="buyNow"
               >
                 Buy Now
               </button>
               <button
                 type="button"
-                @click="toggleWishlist"
                 class="h-12 w-12 shrink-0 inline-flex items-center justify-center rounded-xl border border-border bg-card text-muted-foreground hover:text-destructive hover:border-destructive/30 transition-all cursor-pointer hover:scale-101"
                 :class="isWishlisted ? 'text-destructive border-destructive/20 bg-destructive/5' : ''"
                 title="Add to Wishlist"
+                @click="toggleWishlist"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -433,8 +433,8 @@ const reviews = ref([
             <div class="border-b border-border">
               <button
                 type="button"
-                @click="toggleSection('specs')"
                 class="flex w-full items-center justify-between py-4 text-left font-semibold text-foreground hover:text-primary transition-colors cursor-pointer"
+                @click="toggleSection('specs')"
               >
                 <span>Specifications & Dimensions</span>
                 <svg
@@ -481,8 +481,8 @@ const reviews = ref([
             <div class="border-b border-border">
               <button
                 type="button"
-                @click="toggleSection('shipping')"
                 class="flex w-full items-center justify-between py-4 text-left font-semibold text-foreground hover:text-primary transition-colors cursor-pointer"
+                @click="toggleSection('shipping')"
               >
                 <span>Shipping & Return Info</span>
                 <svg
@@ -689,8 +689,8 @@ const reviews = ref([
               </DialogClose>
               <button
                 type="button"
-                @click="confirm"
                 class="h-11 px-5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/95 text-sm font-semibold shadow-md transition-all cursor-pointer"
+                @click="confirm"
               >
                 Log In
               </button>

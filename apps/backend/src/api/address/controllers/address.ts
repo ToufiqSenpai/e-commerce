@@ -3,7 +3,7 @@
  */
 
 import { factories } from '@strapi/strapi'
-import type { Address, AddressController, AddressInput } from '../types/address'
+import type { AddressController, AddressInput } from '../types/address'
 import { InvalidAreaIdError } from '../services/address'
 
 const UID = 'api::address.address'
@@ -14,11 +14,11 @@ export default factories.createCoreController(UID, ({ strapi }) => ({
     if (!user) return ctx.unauthorized(`You're not logged in!`)
 
     await this.validateQuery(ctx)
-    const sanitizedQuery = (await this.sanitizeQuery(ctx)) as Record<string, any>
+    const sanitizedQuery = (await this.sanitizeQuery(ctx)) as Record<string, unknown>
 
     const { results, pagination } = await strapi.service(UID).find({
       ...sanitizedQuery,
-      filters: { ...sanitizedQuery.filters, users_permissions_user: user.id },
+      filters: { ...(sanitizedQuery.filters as Record<string, unknown>), users_permissions_user: user.id },
     })
 
     const sanitizedResults = await this.sanitizeOutput(results, ctx)
@@ -31,7 +31,7 @@ export default factories.createCoreController(UID, ({ strapi }) => ({
 
     const { id } = ctx.params
     await this.validateQuery(ctx)
-    const sanitizedQuery = (await this.sanitizeQuery(ctx)) as Record<string, any>
+    const sanitizedQuery = (await this.sanitizeQuery(ctx)) as Record<string, unknown>
 
     const entity = await strapi.service(UID).findOne(id, {
       ...sanitizedQuery,
@@ -49,7 +49,7 @@ export default factories.createCoreController(UID, ({ strapi }) => ({
     if (!user) return ctx.unauthorized(`You're not logged in!`)
 
     await this.validateQuery(ctx)
-    const sanitizedQuery = (await this.sanitizeQuery(ctx)) as Record<string, any>
+    const sanitizedQuery = (await this.sanitizeQuery(ctx)) as Record<string, unknown>
 
     const { body } = ctx.request
     if (!body || !body.data) {
@@ -75,7 +75,7 @@ export default factories.createCoreController(UID, ({ strapi }) => ({
 
     const { id } = ctx.params
     await this.validateQuery(ctx)
-    const sanitizedQuery = (await this.sanitizeQuery(ctx)) as Record<string, any>
+    const sanitizedQuery = (await this.sanitizeQuery(ctx)) as Record<string, unknown>
 
     const { body } = ctx.request
     if (!body || !body.data) {
@@ -105,7 +105,7 @@ export default factories.createCoreController(UID, ({ strapi }) => ({
 
     const { id } = ctx.params
     await this.validateQuery(ctx)
-    const sanitizedQuery = (await this.sanitizeQuery(ctx)) as Record<string, any>
+    const sanitizedQuery = (await this.sanitizeQuery(ctx)) as Record<string, unknown>
 
     const existing = await strapi.service(UID).findOne(id, {
       filters: { users_permissions_user: user.id },

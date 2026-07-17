@@ -53,9 +53,9 @@ onUnmounted(() => {
 
     <!-- Controls -->
     <button
-      @click="prevSlide"
       class="absolute left-4 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background text-foreground rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
       aria-label="Previous banner"
+      @click="prevSlide"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -72,9 +72,9 @@ onUnmounted(() => {
       </svg>
     </button>
     <button
-      @click="nextSlide"
       class="absolute right-4 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background text-foreground rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
       aria-label="Next banner"
+      @click="nextSlide"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -96,10 +96,10 @@ onUnmounted(() => {
       <button
         v-for="(_, index) in banners"
         :key="index"
-        @click="currentIndex = index"
         class="w-2.5 h-2.5 rounded-full transition-colors"
         :class="index === currentIndex ? 'bg-primary' : 'bg-background/50 hover:bg-background/80'"
         :aria-label="`Go to slide ${index + 1}`"
+        @click="currentIndex = index"
       />
     </div>
   </div>

@@ -191,7 +191,7 @@ const saveAddress = async () => {
       Loading address details...
     </div>
 
-    <form v-else @submit.prevent="saveAddress" class="space-y-5 w-full">
+    <form v-else class="space-y-5 w-full" @submit.prevent="saveAddress">
       <div class="grid gap-4 sm:grid-cols-2">
         <div class="space-y-2">
           <label class="text-sm font-medium">Recipient Name</label>
@@ -305,9 +305,9 @@ const saveAddress = async () => {
 
       <div class="flex items-center space-x-2 pt-2">
         <input
-          type="checkbox"
           id="isDefault"
           v-model="form.isDefault"
+          type="checkbox"
           :disabled="hasNoAddresses"
           class="h-4 w-4 rounded border-border text-primary focus:ring-primary accent-primary disabled:opacity-50 disabled:cursor-not-allowed"
         />
@@ -325,8 +325,8 @@ const saveAddress = async () => {
       <div class="flex gap-4 pt-4 border-t border-border mt-6">
         <button
           type="button"
-          @click="navigateTo('/account/address')"
           class="h-10 px-4 py-2 flex-1 rounded-md border border-input bg-background hover:bg-muted hover:text-foreground text-sm font-medium transition-colors"
+          @click="navigateTo('/account/address')"
         >
           Cancel
         </button>

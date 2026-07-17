@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import type { StrapiMedia } from '~/types/strapi/common'
 
 const props = defineProps<{
-  images?: StrapiMedia[] | null
+  images: StrapiMedia[]
   productName: string
 }>()
 
@@ -39,9 +39,9 @@ const prevImage = () => {
       <!-- Slide Controls Overlay -->
       <button
         v-if="images && images.length > 1"
-        @click="prevImage"
         class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center h-10 w-10 rounded-full bg-background/80 hover:bg-background border border-border text-foreground hover:scale-105 transition-all shadow-md cursor-pointer"
         aria-label="Previous Image"
+        @click="prevImage"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -59,9 +59,9 @@ const prevImage = () => {
       </button>
       <button
         v-if="images && images.length > 1"
-        @click="nextImage"
         class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center h-10 w-10 rounded-full bg-background/80 hover:bg-background border border-border text-foreground hover:scale-105 transition-all shadow-md cursor-pointer"
         aria-label="Next Image"
+        @click="nextImage"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -84,11 +84,11 @@ const prevImage = () => {
       <button
         v-for="(img, idx) in images"
         :key="img.id"
-        @click="activeImageIndex = idx"
         class="relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 bg-muted transition-all cursor-pointer"
         :class="
           activeImageIndex === idx ? 'border-primary shadow-sm scale-95' : 'border-border opacity-70 hover:opacity-100'
         "
+        @click="activeImageIndex = idx"
       >
         <img
           :src="useStrapiMedia(img.url)"

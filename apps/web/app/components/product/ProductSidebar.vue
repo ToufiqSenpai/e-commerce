@@ -45,8 +45,8 @@ const updateFilters = (key: string, value: string | undefined) => {
             type="radio"
             name="category"
             :checked="!currentCategory"
-            @change="updateFilters('category', undefined)"
             class="text-primary focus:ring-primary accent-primary w-4 h-4 cursor-pointer"
+            @change="updateFilters('category', undefined)"
           />
           <span class="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors"
             >All Products</span
@@ -59,8 +59,8 @@ const updateFilters = (key: string, value: string | undefined) => {
             name="category"
             :value="cat.slug"
             :checked="currentCategory === cat.slug"
-            @change="updateFilters('category', cat.slug)"
             class="text-primary focus:ring-primary accent-primary w-4 h-4 cursor-pointer"
+            @change="updateFilters('category', cat.slug)"
           />
           <span class="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">{{
             cat.name
@@ -80,8 +80,8 @@ const updateFilters = (key: string, value: string | undefined) => {
             type="number"
             placeholder="0"
             :value="minPrice"
-            @change="(e) => updateFilters('minPrice', (e.target as HTMLInputElement).value)"
             class="w-full h-10 px-3 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+            @change="(e) => updateFilters('minPrice', (e.target as HTMLInputElement).value)"
           />
         </div>
         <div>
@@ -91,8 +91,8 @@ const updateFilters = (key: string, value: string | undefined) => {
             type="number"
             placeholder="Any"
             :value="maxPrice"
-            @change="(e) => updateFilters('maxPrice', (e.target as HTMLInputElement).value)"
             class="w-full h-10 px-3 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+            @change="(e) => updateFilters('maxPrice', (e.target as HTMLInputElement).value)"
           />
         </div>
       </div>
@@ -104,8 +104,8 @@ const updateFilters = (key: string, value: string | undefined) => {
       <div class="relative">
         <select
           :value="currentSort"
-          @change="(e) => updateFilters('sort', (e.target as HTMLSelectElement).value)"
           class="w-full h-10 pl-3 pr-8 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm appearance-none cursor-pointer"
+          @change="(e) => updateFilters('sort', (e.target as HTMLSelectElement).value)"
         >
           <option value="">Recommended</option>
           <option value="createdAt:desc">Newest Arrivals</option>

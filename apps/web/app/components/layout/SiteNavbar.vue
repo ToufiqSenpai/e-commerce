@@ -38,7 +38,7 @@ const handleSearch = () => {
 
       <!-- Search -->
       <div class="flex-1 max-w-md hidden md:flex">
-        <form @submit.prevent="handleSearch" class="relative w-full">
+        <form class="relative w-full" @submit.prevent="handleSearch">
           <input
             v-model="searchQuery"
             type="search"
@@ -148,8 +148,8 @@ const handleSearch = () => {
                     >My Account</NuxtLink
                   >
                   <button
-                    @click="logout"
                     class="w-full text-left block px-4 py-2 text-sm text-destructive hover:bg-muted transition-colors"
+                    @click="logout"
                   >
                     Log out
                   </button>

@@ -38,7 +38,7 @@ export interface StrapiMedia extends StrapiDocument {
   url: string
   previewUrl: string | null
   provider: string
-  provider_metadata: any | null
+  provider_metadata: unknown | null
 }
 
 export interface StrapiInlineTextNode {
@@ -101,7 +101,7 @@ export interface StrapiImageBlock {
     height: number
     size?: number
     mime?: string
-    formats?: any
+    formats?: unknown
   }
   children: StrapiInlineTextNode[]
 }

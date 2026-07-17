@@ -59,8 +59,8 @@ onConfirm(async () => {
         <p class="text-sm text-muted-foreground">Manage your shipping and billing addresses.</p>
       </div>
       <button
-        @click="navigateTo('/account/address/new')"
         class="h-9 px-4 inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer"
+        @click="navigateTo('/account/address/new')"
       >
         Add Address
       </button>
@@ -97,8 +97,8 @@ onConfirm(async () => {
         <!-- Action Buttons -->
         <div class="flex gap-4 mt-5 pt-4 border-t border-border/60">
           <button
-            @click="navigateTo('/account/address/' + address.documentId)"
             class="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary/80 transition-colors cursor-pointer"
+            @click="navigateTo('/account/address/' + address.documentId)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -117,8 +117,8 @@ onConfirm(async () => {
             Edit
           </button>
           <button
-            @click="confirmDelete(address)"
             class="inline-flex items-center gap-1.5 text-xs font-semibold text-destructive hover:text-destructive/80 transition-colors cursor-pointer"
+            @click="confirmDelete(address)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -185,8 +185,8 @@ onConfirm(async () => {
           <button
             type="button"
             :disabled="deletingAddress"
-            @click="confirm"
             class="h-10 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground hover:bg-destructive/90 text-sm font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+            @click="confirm"
           >
             <svg
               v-if="deletingAddress"

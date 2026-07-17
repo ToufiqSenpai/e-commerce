@@ -84,16 +84,16 @@ const handleConfirm = () => {
               <button
                 type="button"
                 :disabled="loading"
-                @click="handleCancel"
                 class="h-10 px-4 py-2 rounded-lg border border-input bg-background hover:bg-muted text-sm font-medium transition-colors disabled:opacity-50 cursor-pointer"
+                @click="handleCancel"
               >
                 {{ cancelText || 'Cancel' }}
               </button>
               <button
                 type="button"
                 :disabled="loading"
-                @click="handleConfirm"
                 class="h-10 px-4 py-2 rounded-lg bg-destructive text-destructive-foreground hover:bg-destructive/90 text-sm font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+                @click="handleConfirm"
               >
                 <svg
                   v-if="loading"

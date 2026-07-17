@@ -1,31 +1,40 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import type { Strapi5Error } from '@nuxtjs/strapi'
 import { useRouter } from 'vue-router'
+import { parseStrapiError } from '~/helpers/strapi-validation'
 
 const { register } = useStrapiAuth()
 const router = useRouter()
 
-const username = ref('')
-const email = ref('')
-const password = ref('')
+const form = reactive({
+  username: '',
+  email: '',
+  password: '',
+})
 const loading = ref(false)
-const errorMessage = ref('')
+let fieldErrors = reactive<Record<string, string>>({})
 
 const handleRegister = async () => {
-  if (!username.value || !email.value || !password.value) return
+  if (!form.username || !form.email || !form.password) return
 
   loading.value = true
-  errorMessage.value = ''
+  fieldErrors = {}
 
   try {
     await register({
-      username: username.value,
-      email: email.value,
-      password: password.value,
+      username: form.username,
+      email: form.email,
+      password: form.password,
     })
     router.push('/')
-  } catch (error: any) {
-    errorMessage.value = error.error?.message || 'Failed to create account. Please try again.'
+  } catch (error) {
+    const parsed = parseStrapiError(error as Strapi5Error)
+
+    if (parsed.name === 'ValidationError') {
+      fieldErrors = parsed.fieldErrors
+    } else if (parsed.name === 'InternalServerError') {
+      fieldErrors.email = 'Email is already exists.'
+    }
   } finally {
     loading.value = false
   }
@@ -42,48 +51,31 @@ const handleRegister = async () => {
 
       <form class="mt-8 space-y-6" @submit.prevent="handleRegister">
         <div class="space-y-4">
-          <div>
-            <label for="username" class="block text-sm font-medium mb-1">Username</label>
-            <input
-              id="username"
-              v-model="username"
-              type="text"
-              required
-              class="w-full h-11 px-4 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
-              placeholder="johndoe"
-            />
-          </div>
+          <FormField
+            id="username"
+            v-model="form.username"
+            label="Username"
+            placeholder="johndoe"
+            :error="fieldErrors.username"
+          />
 
-          <div>
-            <label for="email" class="block text-sm font-medium mb-1">Email address</label>
-            <input
-              id="email"
-              v-model="email"
-              type="email"
-              required
-              class="w-full h-11 px-4 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
-              placeholder="you@example.com"
-            />
-          </div>
+          <FormField
+            id="email"
+            v-model="form.email"
+            label="Email address"
+            type="email"
+            placeholder="you@example.com"
+            :error="fieldErrors.email"
+          />
 
-          <div>
-            <label for="password" class="block text-sm font-medium mb-1">Password</label>
-            <input
-              id="password"
-              v-model="password"
-              type="password"
-              required
-              class="w-full h-11 px-4 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
-              placeholder="••••••••"
-            />
-          </div>
-        </div>
-
-        <div
-          v-if="errorMessage"
-          class="p-3 bg-destructive/10 text-destructive text-sm rounded-md border border-destructive/20"
-        >
-          {{ errorMessage }}
+          <FormField
+            id="password"
+            v-model="form.password"
+            label="Password"
+            type="password"
+            placeholder="••••••••"
+            :error="fieldErrors.password"
+          />
         </div>
 
         <button

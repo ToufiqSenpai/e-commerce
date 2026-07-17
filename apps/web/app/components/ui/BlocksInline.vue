@@ -26,7 +26,7 @@ defineProps<{
       target="_blank"
       rel="noopener noreferrer"
     >
-      <template v-slot="{ href }">
+      <template #default="{ href }">
         <a :href="href" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
           <template v-for="(linkChild, lcIdx) in node.children" :key="lcIdx">
             <span

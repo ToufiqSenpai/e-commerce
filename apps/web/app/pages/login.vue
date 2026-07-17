@@ -1,24 +1,25 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const { login } = useStrapiAuth()
 const router = useRouter()
 const route = useRoute()
 
-const identifier = ref('')
-const password = ref('')
+const form = reactive({
+  identifier: '',
+  password: '',
+})
 const loading = ref(false)
 const errorMessage = ref('')
 
 const handleLogin = async () => {
-  if (!identifier.value || !password.value) return
+  if (!form.identifier || !form.password) return
 
   loading.value = true
   errorMessage.value = ''
 
   try {
-    await login({ identifier: identifier.value, password: password.value })
+    await login({ identifier: form.identifier, password: form.password })
     const redirectPath = (route.query.redirect as string) || '/'
     router.push(redirectPath)
   } catch (error: any) {
@@ -39,32 +40,18 @@ const handleLogin = async () => {
 
       <form class="mt-8 space-y-6" @submit.prevent="handleLogin">
         <div class="space-y-4">
-          <div>
-            <label for="identifier" class="block text-sm font-medium mb-1">Email or Username</label>
-            <input
-              id="identifier"
-              v-model="identifier"
-              type="text"
-              required
-              class="w-full h-11 px-4 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
-              placeholder="you@example.com"
-            />
-          </div>
+          <FormField
+            id="identifier"
+            v-model="form.identifier"
+            label="Email or Username"
+            placeholder="you@example.com"
+          />
 
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <label for="password" class="block text-sm font-medium">Password</label>
+          <FormField id="password" v-model="form.password" label="Password" type="password" placeholder="••••••••">
+            <template #label-append>
               <a href="#" class="text-xs text-primary hover:underline">Forgot password?</a>
-            </div>
-            <input
-              id="password"
-              v-model="password"
-              type="password"
-              required
-              class="w-full h-11 px-4 rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
-              placeholder="••••••••"
-            />
-          </div>
+            </template>
+          </FormField>
         </div>
 
         <div

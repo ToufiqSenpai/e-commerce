@@ -8,7 +8,7 @@ if (!context) {
 </script>
 
 <template>
-  <div @click="context.close" class="contents">
+  <div class="contents" @click="context.close">
     <slot />
   </div>
 </template>

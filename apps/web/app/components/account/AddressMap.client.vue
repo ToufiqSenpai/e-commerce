@@ -140,9 +140,9 @@ onUnmounted(() => {
     <!-- Locate button overlay -->
     <button
       type="button"
-      @click="getUserLocation"
       class="absolute bottom-4 right-4 z-20 flex h-9 w-9 items-center justify-center rounded-lg border bg-card text-foreground shadow-sm hover:bg-muted transition-colors cursor-pointer"
       title="Get current location"
+      @click="getUserLocation"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
