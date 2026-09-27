@@ -22,12 +22,20 @@ const deniedExecutableTypes = [
   'application/x-mach-binary',
 ]
 
-const config = (): Core.Config.Plugin => ({
+const config = ({
+  env,
+}: {
+  env: (key: string, defaultValue?: string) => string
+}): Core.Config.Plugin => ({
   'users-permissions': {
     config: {
+      jwt: {
+        expiresIn: '7d',
+      },
       jwtManagement: 'refresh',
       sessions: {
         httpOnly: true,
+        accessTokenLifespan: 7 * 24 * 60 * 60, // 7 days in seconds
       },
     },
   },

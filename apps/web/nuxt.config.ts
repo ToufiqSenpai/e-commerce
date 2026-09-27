@@ -4,10 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-
   // Register global CSS
   css: ['~/assets/css/main.css'],
-
   modules: [
     '@nuxt/eslint',
     '@nuxt/image',
@@ -21,19 +19,8 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@nuxtjs/strapi',
     '@vueuse/nuxt',
+    '@pinia/nuxt',
   ],
-
-  vite: {
-    plugins: [tailwindcss()],
-  },
-
-  components: [
-    {
-      path: '~/components',
-      pathPrefix: false,
-    },
-  ],
-
   strapi: {
     url: process.env.STRAPI_URL || 'http://localhost:1337',
     prefix: '/api',
@@ -47,6 +34,17 @@ export default defineNuxtConfig({
     },
     cookieName: 'strapi',
   },
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
+
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
 
   // Configure color mode (system default with empty suffix for Tailwind compatibility)
   colorMode: {

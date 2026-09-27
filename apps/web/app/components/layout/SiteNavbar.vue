@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
+import { useCartStore } from '~/stores/cart'
 
 const router = useRouter()
 const user = useStrapiUser()
@@ -9,6 +11,13 @@ const { logout } = useStrapiAuth()
 // Fetch global settings using our new composable
 const globalData = await useGlobalSettings()
 const faviconUrl = computed(() => globalData.value?.favicon?.url)
+
+// Access cart items to calculate the dynamic badge count
+const cartStore = useCartStore()
+const { items } = storeToRefs(cartStore)
+const cartCount = computed(() => {
+  return items.value.reduce((sum, item) => sum + item.quantity, 0)
+})
 
 // Search functionality
 const searchQuery = ref('')
@@ -86,7 +95,11 @@ const handleSearch = () => {
 
         <!-- Authenticated Mode -->
         <template v-else>
-          <button aria-label="Cart" class="relative p-2 text-muted-foreground hover:text-foreground transition-colors">
+          <NuxtLink
+            to="/cart"
+            aria-label="Cart"
+            class="relative p-2 text-muted-foreground hover:text-foreground transition-colors block"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -103,10 +116,11 @@ const handleSearch = () => {
               <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
             </svg>
             <span
+              v-if="cartCount > 0"
               class="absolute top-1 right-1 w-4 h-4 bg-primary text-[10px] font-bold text-primary-foreground flex items-center justify-center rounded-full"
-              >3</span
+              >{{ cartCount }}</span
             >
-          </button>
+          </NuxtLink>
           <div class="relative group">
             <button
               aria-label="Account"

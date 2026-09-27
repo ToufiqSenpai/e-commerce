@@ -6,6 +6,7 @@ module.exports = {
   testMatch: ['**/*.e2e.ts', '**/*.e2e.test.ts'],
   testTimeout: 30000,
   forceExit: true,
+  maxWorkers: 1,
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   transform: {
     '^.+\\.ts$': [

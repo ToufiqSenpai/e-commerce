@@ -18,10 +18,23 @@
       "private": true,
       "inversedBy": "carts"
     },
-    "items": {
-      "type": "component",
-      "component": "e-commerce.cart-item",
-      "repeatable": true
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "carts"
+    },
+    "quantity": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "price": {
+      "type": "float",
+      "required": true,
+      "default": 0,
+      "min": 0
     }
   }
 }

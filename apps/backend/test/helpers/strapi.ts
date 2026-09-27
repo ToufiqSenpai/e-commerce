@@ -34,7 +34,7 @@ export async function setupStrapi() {
   await enableAllPermissions(adminToken, 'public')
   await enableAllPermissions(adminToken, 'authenticated')
 
-  return { instance, token: await getToken() }
+  return { instance, token: await getToken(), adminToken: getAdminToken() }
 }
 
 export async function cleanupStrapi(): Promise<void> {

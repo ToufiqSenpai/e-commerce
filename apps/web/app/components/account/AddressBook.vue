@@ -1,19 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useConfirmDialog } from '@vueuse/core'
-import type { Strapi5ResponseMany } from '@nuxtjs/strapi'
+import { storeToRefs } from 'pinia'
 import type { Address } from '~/types/strapi/address'
+import { useAddressStore } from '~/stores/address'
 
-const { find, delete: destroy } = useStrapi()
-const {
-  data: addresses,
-  pending,
-  refresh,
-} = await useAsyncData<Strapi5ResponseMany<Address>>('addresses', () =>
-  find('addresses', {
-    sort: 'isDefault:desc',
-  }),
-)
+const store = useAddressStore()
+const { items, pending } = storeToRefs(store)
+const { remove } = store
 
 const { isRevealed, reveal, confirm, cancel, onConfirm } = useConfirmDialog()
 const addressToDelete = ref<Address | null>(null)
@@ -22,9 +16,7 @@ const deletingAddress = ref(false)
 const isDialogOpen = computed({
   get: () => isRevealed.value,
   set: (value) => {
-    if (!value) {
-      cancel()
-    }
+    if (!value) cancel()
   },
 })
 
@@ -38,10 +30,7 @@ onConfirm(async () => {
 
   try {
     deletingAddress.value = true
-    await destroy('addresses', addressToDelete.value.documentId)
-
-    // Refresh the local addresses data
-    await refresh()
+    await remove(addressToDelete.value.documentId)
   } catch (error) {
     console.error('Failed to delete address:', error)
   } finally {
@@ -68,13 +57,13 @@ onConfirm(async () => {
 
     <div v-if="pending" class="text-sm text-muted-foreground">Loading addresses...</div>
 
-    <div v-else-if="!addresses?.data?.length" class="text-center py-10 border border-dashed border-border rounded-xl">
+    <div v-else-if="!items.length" class="text-center py-10 border border-dashed border-border rounded-xl">
       <p class="text-sm text-muted-foreground">You don't have any saved addresses yet.</p>
     </div>
 
     <div v-else class="grid gap-4 sm:grid-cols-2">
       <div
-        v-for="address in addresses.data"
+        v-for="address in items"
         :key="address.id"
         class="p-5 border border-border rounded-xl bg-card relative shadow-sm hover:border-primary/50 transition-colors flex flex-col justify-between group"
       >

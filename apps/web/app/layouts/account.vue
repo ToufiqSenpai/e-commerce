@@ -6,6 +6,9 @@ const isRouteActive = (path: string) => {
   if (path === '/account/address') {
     return route.path.startsWith('/account/address')
   }
+  if (path === '/account/orders') {
+    return route.path.startsWith('/account/orders')
+  }
   return route.path === path
 }
 </script>
@@ -38,6 +41,17 @@ const isRouteActive = (path: string) => {
             "
           >
             Address Book
+          </NuxtLink>
+          <NuxtLink
+            to="/account/orders"
+            class="text-left px-4 py-3 rounded-xl text-sm font-medium transition-colors whitespace-nowrap border"
+            :class="
+              isRouteActive('/account/orders')
+                ? 'bg-primary/5 text-primary border-primary/20'
+                : 'border-transparent hover:bg-muted text-muted-foreground hover:text-foreground'
+            "
+          >
+            My Orders
           </NuxtLink>
         </nav>
       </aside>

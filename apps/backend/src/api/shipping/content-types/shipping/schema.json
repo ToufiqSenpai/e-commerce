@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "shippings",
+  "info": {
+    "singularName": "shipping",
+    "pluralName": "shippings",
+    "displayName": "Shipping"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "storeLocation": {
+      "type": "json"
+    },
+    "activeCouriers": {
+      "type": "json"
+    }
+  }
+}

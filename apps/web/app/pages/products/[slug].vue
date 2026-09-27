@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useConfirmDialog } from '@vueuse/core'
 import type { Product } from '~/types/strapi/product'
+import { useCartStore } from '~/stores/cart'
 
 definePageMeta({
   layout: 'default',
@@ -10,7 +11,7 @@ definePageMeta({
 
 const route = useRoute()
 const router = useRouter()
-const { find, create, update } = useStrapi()
+const { find } = useStrapi()
 const user = useStrapiUser()
 const slug = computed(() => route.params.slug as string)
 
@@ -90,6 +91,8 @@ const showLoginDialog = computed({
 })
 
 const addingToCart = ref(false)
+const cartStore = useCartStore()
+const { addItem } = cartStore
 
 const redirectToLogin = () => {
   // Guard to prevent multiple redirects if button is clicked multiple times quickly
@@ -114,62 +117,7 @@ const addToCart = async () => {
 
   addingToCart.value = true
   try {
-    const response = await find<any>('carts', {
-      filters: {
-        users_permissions_user: {
-          id: {
-            $eq: user.value.id,
-          },
-        },
-      },
-      populate: {
-        items: {
-          populate: ['product'],
-        },
-      },
-    })
-
-    const existingCart = response.data?.[0]
-
-    if (existingCart) {
-      const items = existingCart.items || []
-      const existingItemIndex = items.findIndex((item: any) => {
-        const itemId = typeof item.product === 'object' ? item.product?.id : item.product
-        return itemId === product.value.id
-      })
-
-      if (existingItemIndex > -1) {
-        items[existingItemIndex].quantity += quantity.value
-      } else {
-        items.push({
-          product: product.value.id,
-          quantity: quantity.value,
-          price: product.value.price,
-        })
-      }
-
-      const itemsPayload = items.map((item: any) => ({
-        product: typeof item.product === 'object' ? item.product.id : item.product,
-        quantity: item.quantity,
-        price: item.price,
-      }))
-
-      await update('carts', existingCart.id, {
-        items: itemsPayload,
-      })
-    } else {
-      await create('carts', {
-        users_permissions_user: user.value.id,
-        items: [
-          {
-            product: product.value.id,
-            quantity: quantity.value,
-            price: product.value.price,
-          },
-        ],
-      })
-    }
-
+    await addItem(product.value, quantity.value)
     triggerToast(`Success: Added ${quantity.value} item(s) of "${product.value.name}" to your cart!`)
   } catch (err: any) {
     console.error('Error adding to cart:', err)

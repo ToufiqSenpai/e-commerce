@@ -79,6 +79,12 @@
       "target": "api::cart.cart",
       "private": true,
       "mappedBy": "users_permissions_user"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "users_permissions_user"
     }
   }
 }

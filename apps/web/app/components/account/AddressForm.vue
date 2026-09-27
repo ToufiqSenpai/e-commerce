@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import { ref, reactive, computed, watch, onMounted } from 'vue'
-import type { Strapi5ResponseMany } from '@nuxtjs/strapi'
+import { storeToRefs } from 'pinia'
 import type { Address, Area, AreaResponse } from '~/types/strapi/address'
+import { useAddressStore } from '~/stores/address'
 
 const props = defineProps<{
   id?: string
 }>()
 
-const { create, find, findOne, update } = useStrapi()
+const route = useRoute()
+const redirectTo = computed(() => (route.query.redirect as string) || '/account/address')
+
+const addressStore = useAddressStore()
+const { items } = storeToRefs(addressStore)
+const { save } = addressStore
+const { findOne } = useStrapi()
+
 const client = useStrapiClient()
-const { data: existingAddresses } = await useAsyncData<Strapi5ResponseMany<Address>>('addresses', () =>
-  find('addresses'),
-)
-const hasNoAddresses = computed(() => !existingAddresses.value?.data?.length)
+const hasNoAddresses = computed(() => !items.value.length)
 
 const form = reactive({
   recipientName: '',
@@ -153,19 +158,12 @@ const saveAddress = async () => {
   try {
     loading.value = true
 
-    // Map selection names to form payload
     form.province = selectedProvince.value?.name || ''
     form.city = selectedRegency.value?.name || ''
     form.district = selectedDistrict.value?.name || ''
 
-    if (props.id) {
-      await update<Address>('addresses', props.id, form)
-    } else {
-      await create<Address>('addresses', form)
-    }
-
-    clearNuxtData('addresses')
-    navigateTo('/account/address')
+    await save(props.id, form)
+    navigateTo(redirectTo.value)
   } catch (error) {
     console.error('Failed to save address:', error)
     throw error
@@ -326,7 +324,7 @@ const saveAddress = async () => {
         <button
           type="button"
           class="h-10 px-4 py-2 flex-1 rounded-md border border-input bg-background hover:bg-muted hover:text-foreground text-sm font-medium transition-colors"
-          @click="navigateTo('/account/address')"
+          @click="navigateTo(redirectTo)"
         >
           Cancel
         </button>

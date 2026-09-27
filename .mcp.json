@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "nuxt": {
+    "nuxt-docs": {
       "transport": "http",
       "enabled": true,
       "url": "https://nuxt.com/mcp"

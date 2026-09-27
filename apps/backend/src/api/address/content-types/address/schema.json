@@ -58,6 +58,12 @@
       "target": "plugin::users-permissions.user",
       "private": true,
       "inversedBy": "addresses"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "address"
     }
   }
 }

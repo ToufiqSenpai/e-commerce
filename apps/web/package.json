@@ -29,6 +29,7 @@
     "@nuxtjs/device": "^4.0.0",
     "@nuxtjs/seo": "^5.3.2",
     "@nuxtjs/strapi": "^2.2.0",
+    "@pinia/nuxt": "^1.0.1",
     "@unhead/vue": "^2.1.15",
     "@vueuse/core": "^14.3.0",
     "@vueuse/integrations": "^14.3.0",
@@ -39,6 +40,7 @@
     "nuxt": "^4.4.8",
     "nuxt-og-image": "^6.7.0",
     "nuxt-schema-org": "^6.2.3",
+    "pinia": "^4.0.2",
     "vue": "^3.5.39",
     "vue-router": "^5.1.0"
   },

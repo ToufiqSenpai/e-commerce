@@ -1,24 +1,5 @@
 import type { Schema, Struct } from '@strapi/strapi'
 
-export interface ECommerceCartItem extends Struct.ComponentSchema {
-  collectionName: 'components_e_commerce_cart_items'
-  info: {
-    displayName: 'Cart Item'
-  }
-  attributes: {
-    price: Schema.Attribute.Decimal & Schema.Attribute.Required
-    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>
-    quantity: Schema.Attribute.Integer &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 1000
-        },
-        number
-      >
-  }
-}
-
 export interface SharedMedia extends Struct.ComponentSchema {
   collectionName: 'components_shared_media'
   info: {
@@ -95,7 +76,6 @@ export interface SharedVariants extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export namespace Public {
     export interface ComponentSchemas {
-      'e-commerce.cart-item': ECommerceCartItem
       'shared.media': SharedMedia
       'shared.quote': SharedQuote
       'shared.rich-text': SharedRichText

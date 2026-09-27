@@ -17,7 +17,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.50.2",
     "@strapi/plugin-users-permissions": "5.50.2",
     "@strapi/strapi": "5.50.2",
     "fs-extra": "^10.0.0",
@@ -31,6 +30,7 @@
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.4",
     "@electric-sql/pglite-socket": "^0.2.7",
+    "@strapi/sdk-plugin": "^6.1.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^20",
     "@types/react": "^18",

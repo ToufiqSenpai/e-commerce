@@ -3,17 +3,14 @@
 [cmd]: https://commandcode.ai/
 
 # nuxt
-
-- Use Nuxt's auto-imports for Vue composition API utilities (ref, reactive, etc.) instead of importing them explicitly from 'vue'. Confidence: 0.70
-
+See [nuxt/taste.md](nuxt/taste.md)
 # strapi
-
-- Use Strapi's built-in logger instead of console.log. Confidence: 0.65
-
+See [strapi/taste.md](strapi/taste.md)
 # architecture
 
 - Place external API calls in services, not controllers, for separation of concerns. Confidence: 0.65
 - Consolidate related route definitions into a single route file (e.g., routes/address.ts) instead of creating separate route files per endpoint. Confidence: 0.90
+- Prefer fewer, richer API endpoints: if endpoint B's response is a superset of endpoint A's data, eliminate endpoint A. The richer endpoint should be the single source. Confidence: 0.80
 
 # npm
 
@@ -26,6 +23,7 @@
 # typescript
 
 - Use `unknown` instead of `any` for Record type values (`Record<string, unknown>`). Confidence: 0.75
+- Gunakan `interface` untuk mendefinisikan object shapes, bukan `type`. Confidence: 0.75
 
 # eslint
 
@@ -37,10 +35,7 @@
 - For backend tests, make real external API calls instead of mocking them. Confidence: 0.80
 - Use Testcontainers for ephemeral Postgres in e2e tests. Confidence: 0.50
 - In e2e tests, set up and tear down the Strapi instance once at the root describe block level (file top-level), not per-endpoint describe block. Do not wrap endpoint describe blocks in a parent describe just to share setup/teardown. Confidence: 0.70
+- Run e2e test files sequentially (one at a time), no parallel execution across files. Use `--runInBand` or `maxWorkers: 1` in Jest config. Confidence: 0.80
 
 # workflow
-
-- When integrating with an external API, fetch and verify the actual response shape before coding against it instead of assuming the format. Confidence: 0.65
-- Prefer using read_file over shell commands with Python for reading/parsing downloaded file contents. Confidence: 0.65
-- Do not build, lint, test, or format the project without explicit user permission. Confidence: 0.75
-- Gunakan Bahasa Indonesia untuk komunikasi dan dokumentasi proyek. Confidence: 0.75
+See [workflow/taste.md](workflow/taste.md)

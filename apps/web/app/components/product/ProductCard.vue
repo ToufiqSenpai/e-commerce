@@ -1,9 +1,19 @@
 <script setup lang="ts">
 import type { Product } from '~/types/strapi/product'
 
-defineProps<{
+const props = defineProps<{
   product: Product
 }>()
+
+const formatPrice = (value: number) => {
+  if (value === undefined || value === null) return 'Rp 0'
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value)
+}
 </script>
 
 <template>
@@ -50,7 +60,7 @@ defineProps<{
         {{ product.name }}
       </h3>
       <div class="mt-auto flex items-center justify-between">
-        <span class="font-bold text-lg">${{ product.price ? product.price.toFixed(2) : '0.00' }}</span>
+        <span class="font-bold text-lg">{{ formatPrice(product.price) }}</span>
       </div>
     </div>
   </NuxtLink>

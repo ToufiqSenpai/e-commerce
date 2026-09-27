@@ -1,4 +1,5 @@
 import type { StrapiDocument } from './common'
+import type { StrapiUser } from './user'
 
 export interface Address extends StrapiDocument {
   recipientName: string
@@ -11,21 +12,7 @@ export interface Address extends StrapiDocument {
   latitude: number
   longitude: number
   isDefault: boolean | null
-  users_permissions_user?:
-    | {
-        id: number | string
-        documentId: string
-        username: string
-        email: string
-        provider: string
-        confirmed: boolean | null
-        blocked: boolean | null
-        createdAt?: string
-        updatedAt?: string
-        publishedAt?: string
-      }
-    | string
-    | null
+  users_permissions_user?: StrapiUser | string | null
 }
 
 export interface AreaResponse {
